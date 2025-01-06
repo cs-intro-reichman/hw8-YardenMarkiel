@@ -1,3 +1,7 @@
+
+
+
+
 /** Represents a user in a social network. A user is characterized by a name,
  *  a list of user names that s/he follows, and the list's size. */
  public class User {
@@ -44,19 +48,45 @@
     /** If this user follows the given name, returns true; otherwise returns false. */
     public boolean follows(String name) {
         //// Replace the following statement with your code
+        for ( int i = 0 ; i < follows.length ; i++ ){
+            if ( follows[i].equals(name)) return true;
+        }
         return false;
     }
     /** Makes this user follow the given name. If successful, returns true. 
      *  If this user already follows the given name, or if the follows list is full, does nothing and returns false; */
     public boolean addFollowee(String name) {
         //// Replace the following statement with your code
-        return false;
+        if ( fCount == maxfCount ) return false;
+        if ( follows(name) ) return false;
+        follows[fCount] = name;
+        fCount++;
+        return true;
     }
 
     /** Removes the given name from the follows list of this user. If successful, returns true.
      *  If the name is not in the list, does nothing and returns false. */
     public boolean removeFollowee(String name) {
         //// Replace the following statement with your code
+        int checker = 0;
+        if ( follows[follows.length - 1].equals(name) ) {
+            follows[follows.length - 1] = null;
+            fCount--;
+            return true;
+        }
+        for ( int i = 0 ; i < fCount - 1 ; i++ ){
+            if ( follows[i].equals(name) ){
+                checker++;
+            }
+            if ( checker > 0) {
+                follows[i] = follows [ i + 1 ];
+            }
+        }
+        if ( checker > 0 ){
+            follows[follows.length - 1] = null;
+            fCount--;
+            return true;
+        }
         return false;
     }
 
@@ -64,13 +94,20 @@
     /*  Notice: This is the size of the intersection of the two follows lists. */
     public int countMutual(User other) {
          //// Replace the following statement with your code
-        return 0;
+         int result = 0;
+         for ( int i = 0 ; i < other.fCount ; i++ ){
+            for ( int j = 0 ; j < fCount ; j++ ){
+                if ( other.getfFollows()[i].equals(follows[j])) result++;
+            }
+         }
+        return result;
     }
 
     /** Checks is this user is a friend of the other user.
      *  (if two users follow each other, they are said to be "friends.") */
     public boolean isFriendOf(User other) {
         //// Replace the following statement with your code
+        if ( (this.follows(other.getName())) && (other.follows(this.name) ) ) return  true;
         return false;
     }
     /** Returns this user's name, and the names that s/he follows. */
