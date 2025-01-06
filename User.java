@@ -113,12 +113,12 @@
         if (other == null) return false;
         return this.follows(other.getName()) && other.follows(this.name);
     }
-    /** Returns this user's name, and the names that s/he follows. */   
+    /** Returns this user's name, and the names that s/he follows. */
     public String toString() {
         String ans = name + " -> ";
         for (int i = 0; i < fCount; i++) {
-            ans += follows[i] + " ";
+            ans = ans + follows[i] + " ";
         }
-        return ans.trim(); 
+        return ans;
     }
-}
+    }
