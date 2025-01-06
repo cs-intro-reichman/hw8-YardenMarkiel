@@ -32,9 +32,11 @@ public class User {
     }
 
     public boolean follows(String name) {
-        if (name == null) return false;
+        if (name == null) {
+            return false;
+        }
         for (int i = 0; i < fCount; i++) {
-            if (follows[i] != null && follows[i].equals(name)) {
+            if (follows[i] != null && follows[i].toLowerCase().equals(name.toLowerCase())) {
                 return true;
             }
         }
@@ -42,7 +44,14 @@ public class User {
     }
 
     public boolean addFollowee(String name) {
-        if (name == null || fCount == maxfCount || follows(name)) return false;
+        if (name == null || fCount >= maxfCount) {
+            return false;
+        }
+        for (int i = 0; i < fCount; i++) {
+            if (follows[i] != null && follows[i].toLowerCase().equals(name.toLowerCase())) {
+                return false;  
+            }
+        }
         follows[fCount] = name;
         fCount++;
         return true;
