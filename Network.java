@@ -46,10 +46,12 @@ public class Network {
 
     /** Makes the user with name1 follow the user with name2. */
     public boolean addFollowee(String name1, String name2) {
+        if (name1 == null || name2 == null) return false; 
+        if (name1.equalsIgnoreCase(name2)) return false; 
         User user1 = getUser(name1);
         User user2 = getUser(name2);
-        if (user1 == null || user2 == null) return false;
-        return user1.addFollowee(user2.getName());
+        if (user1 == null || user2 == null) return false; 
+        return user1.addFollowee(name2);
     }
 
     /** For the user with the given name, recommends another user to follow. */
@@ -117,11 +119,16 @@ public class Network {
     }
 
     /** Returns a textual description of all the users in this network, and who they follow. */
+    
     public String toString() {
-        String list = "";
+        String result = "Network:";
         for (int i = 0; i < userCount; i++) {
-            list = list + users[i].toString() + "\n";
+            result += "\n" + users[i].getName() + " ->";
+            String[] followees = users[i].getfFollows();
+            for (int j = 0; j < users[i].getfCount(); j++) {
+                result += " " + followees[j];
+            }
         }
-        return list;
+        return result;
     }
 }
