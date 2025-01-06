@@ -25,11 +25,11 @@ public class Network {
         return this.userCount;
     }
 
-    /** Finds in this network, and returns, the user that has the given name.
-     *  If there is no such user, returns null. */
     public User getUser(String name) {
         for (int i = 0; i < userCount; i++) {
-            if (users[i] != null && users[i].getName().equals(name)) return users[i];
+            if (users[i].getName().toLowerCase().equals(name.toLowerCase())) {
+                return users[i];
+            }
         }
         return null;
     }
